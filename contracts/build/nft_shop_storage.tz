@@ -1,0 +1,9 @@
+{ Elt 0
+      (Pair (Pair 3 "KT1K6fzLtGsZXjG36D1DHNjWvjGk25WcrbxN")
+            "tz1Z7Mwcrf6KYAb4yzoKu5JJiqnGMLVQGr9J"
+            3000000) ;
+  Elt 1
+      (Pair (Pair 2 "KT1Fdtysbv1MHS4S15eU2sQLuop2GBuibLpk")
+            "tz1Z7Mwcrf6KYAb4yzoKu5JJiqnGMLVQGr9J"
+            12000000) }
+

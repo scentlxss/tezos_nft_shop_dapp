@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NetworkType = void 0;
+var NetworkType;
+(function (NetworkType) {
+    NetworkType["MAINNET"] = "mainnet";
+    NetworkType["DELPHINET"] = "delphinet";
+    NetworkType["EDONET"] = "edonet";
+    NetworkType["FLORENCENET"] = "florencenet";
+    NetworkType["GRANADANET"] = "granadanet";
+    NetworkType["CUSTOM"] = "custom";
+})(NetworkType = exports.NetworkType || (exports.NetworkType = {}));
+//# sourceMappingURL=NetworkType.js.map

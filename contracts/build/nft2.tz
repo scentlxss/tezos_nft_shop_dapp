@@ -1,0 +1,184 @@
+{ parameter (or (or (nat %buy) (unit %nothing)) (nat %recover)) ;
+  storage
+    (map nat
+         (pair (pair (nat %current_stock) (address %token_address))
+               (pair (address %token_admin) (mutez %token_price)))) ;
+  code { LAMBDA
+           (pair (pair nat (pair (pair nat address) (pair address mutez)))
+                 (map nat (pair (pair nat address) (pair address mutez))))
+           (map nat (pair (pair nat address) (pair address mutez)))
+           { UNPAIR ;
+             UNPAIR ;
+             PUSH nat 1 ;
+             DUP 3 ;
+             CAR ;
+             CAR ;
+             COMPARE ;
+             EQ ;
+             IF { SWAP ;
+                  DROP ;
+                  NONE (pair (pair nat address) (pair address mutez)) ;
+                  SWAP ;
+                  UPDATE }
+                { DIG 2 ;
+                  PUSH nat 2 ;
+                  DUP 4 ;
+                  CDR ;
+                  CDR ;
+                  MUL ;
+                  DUP 4 ;
+                  CDR ;
+                  CAR ;
+                  PAIR ;
+                  DUP 4 ;
+                  CAR ;
+                  CDR ;
+                  PUSH nat 1 ;
+                  DIG 5 ;
+                  CAR ;
+                  CAR ;
+                  SUB ;
+                  ABS ;
+                  PAIR ;
+                  PAIR ;
+                  SOME ;
+                  DIG 2 ;
+                  UPDATE } } ;
+         SWAP ;
+         UNPAIR ;
+         IF_LEFT
+           { IF_LEFT
+               { SWAP ;
+                 DUP ;
+                 DUG 2 ;
+                 SWAP ;
+                 DUP ;
+                 DUG 2 ;
+                 GET ;
+                 IF_NONE { PUSH string "Unknown kind of token" ; FAILWITH } {} ;
+                 DUP ;
+                 CDR ;
+                 CDR ;
+                 AMOUNT ;
+                 COMPARE ;
+                 NEQ ;
+                 IF { PUSH string "Sorry, the token you are trying to purchase has a different price" ;
+                      FAILWITH }
+                    {} ;
+                 SELF_ADDRESS ;
+                 NIL (pair address (pair nat nat)) ;
+                 SENDER ;
+                 PUSH nat 1 ;
+                 DUP 5 ;
+                 CAR ;
+                 CAR ;
+                 SUB ;
+                 ABS ;
+                 PUSH nat 1 ;
+                 SWAP ;
+                 PAIR ;
+                 SWAP ;
+                 PAIR ;
+                 CONS ;
+                 SWAP ;
+                 PAIR ;
+                 SWAP ;
+                 DUP ;
+                 DUG 2 ;
+                 CAR ;
+                 CDR ;
+                 CONTRACT %transfer
+                   (list (pair (address %from_)
+                               (list %txs (pair (address %to_) (pair (nat %token_id) (nat %amount)))))) ;
+                 IF_NONE { PUSH string "Invalid external token contract" ; FAILWITH } {} ;
+                 PUSH mutez 0 ;
+                 NIL (pair address (list (pair address (pair nat nat)))) ;
+                 DIG 3 ;
+                 CONS ;
+                 TRANSFER_TOKENS ;
+                 SWAP ;
+                 DUP ;
+                 DUG 2 ;
+                 CDR ;
+                 CAR ;
+                 CONTRACT unit ;
+                 IF_NONE { PUSH string "Not a contract" ; FAILWITH } {} ;
+                 AMOUNT ;
+                 UNIT ;
+                 TRANSFER_TOKENS ;
+                 DIG 4 ;
+                 DIG 3 ;
+                 DIG 4 ;
+                 PAIR ;
+                 PAIR ;
+                 DIG 3 ;
+                 SWAP ;
+                 EXEC ;
+                 NIL operation ;
+                 DIG 2 ;
+                 CONS ;
+                 DIG 2 ;
+                 CONS ;
+                 PAIR }
+               { DIG 2 ; DROP 2 ; NIL operation ; PAIR } }
+           { SWAP ;
+             DUP ;
+             DUG 2 ;
+             SWAP ;
+             DUP ;
+             DUG 2 ;
+             GET ;
+             IF_NONE { PUSH string "Unknown kind of token" ; FAILWITH } {} ;
+             SENDER ;
+             SWAP ;
+             DUP ;
+             DUG 2 ;
+             CDR ;
+             CAR ;
+             COMPARE ;
+             NEQ ;
+             IF { PUSH string "Only the admin" ; FAILWITH } {} ;
+             SELF_ADDRESS ;
+             NIL (pair address (pair nat nat)) ;
+             SENDER ;
+             PUSH nat 1 ;
+             DUP 5 ;
+             CAR ;
+             CAR ;
+             SUB ;
+             ABS ;
+             PUSH nat 1 ;
+             SWAP ;
+             PAIR ;
+             SWAP ;
+             PAIR ;
+             CONS ;
+             SWAP ;
+             PAIR ;
+             SWAP ;
+             DUP ;
+             DUG 2 ;
+             CAR ;
+             CDR ;
+             CONTRACT %transfer
+               (list (pair (address %from_)
+                           (list %txs (pair (address %to_) (pair (nat %token_id) (nat %amount)))))) ;
+             IF_NONE { PUSH string "Invalid external token contract" ; FAILWITH } {} ;
+             PUSH mutez 0 ;
+             NIL (pair address (list (pair address (pair nat nat)))) ;
+             DIG 3 ;
+             CONS ;
+             TRANSFER_TOKENS ;
+             DIG 3 ;
+             DIG 2 ;
+             DIG 3 ;
+             PAIR ;
+             PAIR ;
+             DIG 2 ;
+             SWAP ;
+             EXEC ;
+             NIL operation ;
+             DIG 2 ;
+             CONS ;
+             PAIR } } }
+
