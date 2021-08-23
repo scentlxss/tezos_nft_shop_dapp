@@ -9,10 +9,10 @@ Smart contract updates the current stock of NFTs and the price each time a item 
 - contracts/build compiled storage and contract
 
 
-Deployed Contract can be found at contract address Florencenet: KT1WwRbxofArgxyyzQFiW42kUthhFj1qNM45
-https://better-call.dev/florencenet/KT1WwRbxofArgxyyzQFiW42kUthhFj1qNM45/operations
+Deployed Contract can be found at contract address Florencenet: KT1T5r6Wh44BVfXXcDH9FXq6oCXdzt8b7AqW
+https://better-call.dev/florencenet/KT1T5r6Wh44BVfXXcDH9FXq6oCXdzt8b7AqW/operations
 
-Author Tezos address: tz1Zpr7G56q22MDhceAWSxmQpPm2m93H6rC4
+Author Tezos address: tz1Z7Mwcrf6KYAb4yzoKu5JJiqnGMLVQGr9J
 
 ## Getting Started
 1. Make sure you have https://nodejs.org/ installed on your computer
