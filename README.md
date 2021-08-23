@@ -3,7 +3,7 @@
 ![Built with Taquito][logo]
 Simple implementation to set my store of NFTs DApp in Tezos testnet Florencenet.
 
-Smart contract updates the current stock of NFTs and the price each time a item is bought doubling the price of the items in the collection. This smart contract also adds the owner of the token.
+Smart contract updates the current stock of NFTs and the price each time a item is bought doubling the price of the items in the collection. This smart contract also adds the owner of the token. Admin of the tokens can recover the tokens anytime...
 
 - contracts/ folder holds the initial compiled storage and the CAMELIGO contract itself.
 - contracts/build compiled storage and contract
